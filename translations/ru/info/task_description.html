@@ -1,0 +1,58 @@
+<!-- Describe task in general -->
+
+<p>Можете попробовать перед решением этой миссии попробовать решить миссию <a href="/mission/brackets/">"Brackets"</a></p>
+
+<p>
+    Ваша задача восстановить баланс открытых и закрытых скобок методом удаления не нужных. И сделать это нужно минимальным колличеством удалений.
+</p>
+
+<p>
+    В переданной строке могут использоваться только 3 типа скобок (), [] и {}
+</p>
+
+<p>
+    Круглую скобку может закрывать только круглая скобка. Т.е. в этом выражении "(}" - баланса скобок нет. В пустой строке, т.е. в строке не содержащей ни одной скобки - баланс скобок есть, но при этом удаление всех скобок не является оптимальным решением
+</p>
+
+<!-- Explain input and output values -->
+<p>
+    <strong>Input: </strong> Строка, состоящяя из символов (){}[]
+</p>
+
+<p>
+    <strong>Output: </strong> Строка, состоящяя из символов (){}[]
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Example:</strong>
+    </p>
+
+{% if interpreter.slug == "js-node" %}
+<pre class="brush: javascript">removeParenthesis('(()()') == '()()'
+removeParenthesis('[][[[') == '[]'
+</pre>
+{% else %}
+<pre class="brush: python">remove_parenthesis('(()()') == '()()'
+remove_parenthesis('[][[[') == '[]'
+</pre>
+{% endif %}
+</div>
+
+
+<!-- Here you can explain how it can be used in development -->
+<!-- The section is optional -->
+<p class="for_info_only">
+
+    <strong>How it’s used: </strong>
+    <i>(math is used everywhere)</i>
+</p>
+
+<!-- Here you can explain some constraints for input-->
+<!-- The section is optional -->
+<p>
+    <strong>Precondition:</strong>
+    <i>both given ints should be between -1000 and 1000</i>
+</p>

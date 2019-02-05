@@ -25,12 +25,12 @@
     </p>
 
 {% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">sumTwo(2, 3) == 5
-sumTwo(5, 7) == 12
+<pre class="brush: javascript">removeParenthesis('(()()') == '()()'
+removeParenthesis('[][[[') == '[]'
 </pre>
 {% else %}
-<pre class="brush: python">sum_two(2, 3) == 5
-sum_two(5, 7) == 12
+<pre class="brush: python">remove_parenthesis('(()()') == '()()'
+remove_parenthesis('[][[[') == '[]'
 </pre>
 {% endif %}
 </div>

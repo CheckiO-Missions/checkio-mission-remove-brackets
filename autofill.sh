@@ -1,0 +1,1 @@
+checkio autofillrepo --py-function remove_parenthesis --js-function removeParenthesis .
