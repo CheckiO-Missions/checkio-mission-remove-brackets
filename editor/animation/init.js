@@ -8,8 +8,8 @@ requirejs(['ext_editor_io', 'jquery_190'],
         var io = new extIO({
             multipleArguments: true,
             functions: {
-                python: 'remove_parenthesis',
-                js: 'removeParenthesis'
+                python: 'remove_brackets',
+                js: 'removeBrackets'
             }
         });
         io.start();

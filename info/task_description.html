@@ -25,12 +25,12 @@
     </p>
 
 {% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">removeParenthesis('(()()') == '()()'
-removeParenthesis('[][[[') == '[]'
+<pre class="brush: javascript">removeBrackets('(()()') == '()()'
+removeBrackets('[][[[') == '[]'
 </pre>
 {% else %}
-<pre class="brush: python">remove_parenthesis('(()()') == '()()'
-remove_parenthesis('[][[[') == '[]'
+<pre class="brush: python">remove_brackets('(()()') == '()()'
+remove_brackets('[][[[') == '[]'
 </pre>
 {% endif %}
 </div>

@@ -38,8 +38,8 @@ api.add_listener(
     CheckiOReferee(
         tests=TESTS,
         function_name={
-            "python": "remove_parenthesis",
-            "js": "removeParenthesis"
+            "python": "remove_brackets",
+            "js": "removeBrackets"
         },
         cover_code={
             'python-3': cover_codes.unwrap_args,

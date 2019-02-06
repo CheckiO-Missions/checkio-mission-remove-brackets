@@ -1,6 +1,6 @@
 "use strict";
 
-function removeParenthesis(a) {
+function removeBrackets(a) {
 
     // your code here
     return undefined;
@@ -9,16 +9,16 @@ function removeParenthesis(a) {
 var assert = require('assert');
 if (!global.is_checking) {
     console.log('Example:');
-    console.log(removeParenthesis('(()()'));
+    console.log(removeBrackets('(()()'));
 
     // These "asserts" are used for self-checking and not for an auto-testing
-    assert.equal(removeParenthesis('(()()'), '()()');
-    assert.equal(removeParenthesis('[][[['), '[]');
-    assert.equal(removeParenthesis('[[(}]]'), '[[]]');
-    assert.equal(removeParenthesis('[[{}()]]'), '[[{}()]]');
-    assert.equal(removeParenthesis('[[[[[['), '');
-    assert.equal(removeParenthesis('[[[[}'), '');
-    assert.equal(removeParenthesis(''), '');
+    assert.equal(removeBrackets('(()()'), '()()');
+    assert.equal(removeBrackets('[][[['), '[]');
+    assert.equal(removeBrackets('[[(}]]'), '[[]]');
+    assert.equal(removeBrackets('[[{}()]]'), '[[{}()]]');
+    assert.equal(removeBrackets('[[[[[['), '');
+    assert.equal(removeBrackets('[[[[}'), '');
+    assert.equal(removeBrackets(''), '');
 
     console.log("Coding complete? Click 'Check' to earn cool rewards!");
 }
