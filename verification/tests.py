@@ -37,6 +37,10 @@ TESTS = {
         {
             "input": [""],
             "answer": ""
+        },
+        {
+            "input": ["[(])"],
+            "answer": "()"
         }
     ],
     "Extra": [
@@ -67,6 +71,10 @@ TESTS = {
         {
             "input": ["({}]"],
             "answer": "{}"
+        },
+        {
+            "input": ["([)]"],
+            "answer": "[]"
         }
     ]
 }
