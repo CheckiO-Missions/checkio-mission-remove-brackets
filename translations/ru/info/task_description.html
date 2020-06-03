@@ -35,10 +35,16 @@
 {% if interpreter.slug == "js-node" %}
 <pre class="brush: javascript">removeBrackets('(()()') == '()()'
 removeBrackets('[][[[') == '[]'
+removeBrackets('[[(}]]') == '[[]]'
+removeBrackets('[[{}()]]') == '[[{}()]]'
+removeBrackets('[[[[[[') == ''
 </pre>
 {% else %}
 <pre class="brush: python">remove_brackets('(()()') == '()()'
 remove_brackets('[][[[') == '[]'
+remove_brackets('[[(}]]') == '[[]]'
+remove_brackets('[[{}()]]') == '[[{}()]]'
+remove_brackets('[[[[[[') == ''
 </pre>
 {% endif %}
 </div>

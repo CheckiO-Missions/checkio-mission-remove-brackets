@@ -1,25 +1,22 @@
-"use strict";
+import assert from "assert";
 
-function removeBrackets(a) {
-
+function removeBrackets(line: string): string {
     // your code here
-    return undefined;
+    return line;
 }
 
-var assert = require('assert');
-if (!global.is_checking) {
-    console.log('Example:');
-    console.log(removeBrackets('(()()'));
+console.log('Example:');
+console.log(removeBrackets('(()()'));
 
-    // These "asserts" are used for self-checking and not for an auto-testing
-    assert.equal(removeBrackets('(()()'), '()()');
-    assert.equal(removeBrackets('[][[['), '[]');
-    assert.equal(removeBrackets('[[(}]]'), '[[]]');
-    assert.equal(removeBrackets('[[{}()]]'), '[[{}()]]');
-    assert.equal(removeBrackets('[[[[[['), '');
-    assert.equal(removeBrackets('[[[[}'), '');
-    assert.equal(removeBrackets(''), '');
+// These "asserts" are used for self-checking
+assert.equal(removeBrackets('(()()'), '()()');
+assert.equal(removeBrackets('[][[['), '[]');
+assert.equal(removeBrackets('[[(}]]'), '[[]]');
+assert.equal(removeBrackets('[[{}()]]'), '[[{}()]]');
+assert.equal(removeBrackets('[[[[[['), '');
+assert.equal(removeBrackets('[[[[}'), '');
+assert.equal(removeBrackets(''), '');
+assert.equal(removeBrackets('[(])'), '()');
 
-    console.log("Coding complete? Click 'Check' to earn cool rewards!");
-}
+console.log("Coding complete? Click 'Check' to earn cool rewards!");
     
