@@ -73,6 +73,10 @@ TESTS = {
             "answer": "{}"
         },
         {
+            "input": ["}}){}"],
+            "answer": "{}"
+        },
+        {
             "input": ["([)]"],
             "answer": "[]"
         }
