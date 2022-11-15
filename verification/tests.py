@@ -12,77 +12,77 @@ TESTS = {
     "Basics": [
         {
             "input": ["(()()"],
-            "answer": "()()"
+            "answer": "()()",
         },
         {
             "input": ["[][[["],
-            "answer": "[]"
+            "answer": "[]",
         },
         {
             "input": ["[[(}]]"],
-            "answer": "[[]]"
+            "answer": "[[]]",
         },
         {
             "input": ["[[{}()]]"],
-            "answer": "[[{}()]]"
+            "answer": "[[{}()]]",
         },
         {
             "input": ["[[[[[["],
-            "answer": ""
+            "answer": "",
         },
         {
             "input": ["[[[[}"],
-            "answer": ""
+            "answer": "",
         },
         {
             "input": [""],
-            "answer": ""
+            "answer": "",
         },
         {
             "input": ["[(])"],
-            "answer": "()"
-        }
+            "answer": "()",
+        },
     ],
     "Extra": [
         {
             "input": ["[()()]"],
-            "answer": "[()()]"
+            "answer": "[()()]",
         },
         {
             "input": ["[(()]"],
-            "answer": "[()]"
+            "answer": "[()]",
         },
         {
             "input": ["[(){}"],
-            "answer": "(){}"
+            "answer": "(){}",
         },
         {
             "input": ["[[{}()]]"],
-            "answer": "[[{}()]]"
+            "answer": "[[{}()]]",
         },
         {
             "input": ["{{{((([[["],
-            "answer": ""
+            "answer": "",
         },
         {
             "input": ["(}"],
-            "answer": ""
+            "answer": "",
         },
         {
             "input": ["({}]"],
-            "answer": "{}"
+            "answer": "{}",
         },
         {
             "input": ["}}){}"],
-            "answer": "{}"
+            "answer": "{}",
         },
         {
             "input": ["([)]"],
-            "answer": "[]"
+            "answer": "[]",
         },
         {
             "input": ["[[{}()]]([{])}(]{"],
-            "answer": "[[{}()]([])]"
-        }
+            "answer": "[[{}()]([])]",
+        },
     ]
 }
