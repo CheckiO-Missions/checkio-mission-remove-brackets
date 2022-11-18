@@ -1,10 +1,11 @@
 <!-- Describe task in general -->
 
-<p>Before solving this mission, you can try to solve the <a href="/mission/brackets/">"Brackets"</a> mission.</p>
+<p>
+    Before solving this mission, you can try to solve the <a target="_blank" href="/mission/brackets/">"Brackets"</a> mission.
+</p>
 
 <p>
-    Your task is to restore the balance of open and closed brackets by removing the unnecessary ones, 
-    while trying to use the minimum number of deletions.
+    Your task is to restore the balance of open and closed brackets by removing the unnecessary ones, while trying to use the minimum number of deletions.
 </p>
 
 <p>
@@ -12,47 +13,28 @@
 </p>
 
 <p>
-    Only a parenthesis can close a parenthesis. That is, in this expression "(}" - the brackets aren’t balanced. 
-    In an empty string, i.e., in a string that doesn’t contain any brackets - the brackets are balanced, 
-    but removing all of the brackets isn’t considered to be an optimal solution.
+    Only a parenthesis can close a parenthesis. That is, in this expression <b class="code">"(}"</b> - the brackets aren’t balanced. In an empty string, i.e., in a string that doesn’t contain any brackets - the brackets are balanced, but removing all of the brackets isn’t considered to be an optimal solution.
 </p>
 
 <p>
-    If there are more than one correct answer, 
-    then you should choose the one where the character that can be removed is closer to the beginning. 
-    For example, in this case  "[(])",  the correct answer will be "()", 
-    since the removable brackets are closer to the beginning of the line.
+    If there are more than one correct answer, then you should choose the one where the character that can be removed is closer to the beginning. For example, in this case <b class="code">"[(])"</b>,  the correct answer will be <b class="code">"()"</b>, since the removable brackets are closer to the beginning of the line.
 </p>
 
 <!-- Explain input and output values -->
 <p>
-    <strong>Input: </strong> A string of characters () {} []
+    <strong>Input:</strong> A string of characters () {} [].
 </p>
 
 <p>
-    <strong>Output: </strong> A string of characters () {} []
+    <strong>Output:</strong> A string of characters () {} [].
 </p>
 
 
 <!-- Give some usage examples -->
 <div class="for_info_only">
     <p>
-        <strong>Example:</strong>
+        <strong>Examples:</strong>
     </p>
 
-{% if interpreter.slug == "js-node" %}
-<pre class="brush: javascript">removeBrackets('(()()') == '()()'
-removeBrackets('[][[[') == '[]'
-removeBrackets('[[(}]]') == '[[]]'
-removeBrackets('[[{}()]]') == '[[{}()]]'
-removeBrackets('[[[[[[') == ''
-</pre>
-{% else %}
-<pre class="brush: python">remove_brackets('(()()') == '()()'
-remove_brackets('[][[[') == '[]'
-remove_brackets('[[(}]]') == '[[]]'
-remove_brackets('[[{}()]]') == '[[{}()]]'
-remove_brackets('[[[[[[') == ''
-</pre>
-{% endif %}
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
 </div>
