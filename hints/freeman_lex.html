@@ -1,0 +1,177 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        I have no idea how to start solving this mission.
+    </div>
+    <div class="answer">
+        <p>
+            Catch an idea 💡! To create a list of all possible masks - templates, each of them tells us what exact brackets to delete. The list is sorted by the number of deletions, since you need to find the balanced string with less number of deletions. Each mask is then applied to the given <b class="code">input</b> string to create a new string without deleted brackets. This new string is checked to be balanced. If so, that's the answer.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, what should I start from?
+    </div>
+    <div class="answer">
+        <p>
+            To create all possible templates you need <a target="_blank" href="https://docs.python.org/3/library/itertools.html#itertools.product">product</a> function from <b class="code">itertools</b> standard module. Import the function before your function definition.
+        </p>
+        <pre class="brush: python">
+from itertools import product
+        </pre>
+        <p>
+            Now, let's create a list of all possible templates. For each character in the given <b class="code">input</b> string you have two statuses: it should be deleted in the following template (<b class="code">True</b>) or not (<b class="code">False</b>). Of course, the number of this pairs is equal the length of the <b class="code">input</b>. That's enough information to create a generator of all possible their combinations, using <b class="code">product</b>.  
+        </p>
+        <pre class="brush: python">
+product((True, False), repeat=len(input))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        What to do next?
+    </div>
+    <div class="answer">
+        <p>
+            Since, you are interested is less number of deletions, you need to convert the generator above into a sorted list, where templates with less deletions go first. Python interpreted logic values as integers, so it means the less number of <b class="code">True</b>'s (1's) are in the template, the smaller is the <b class="code">sum</b> of the template values. Now use <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> function with the proper key of sorting and assign the result to a variable.    
+        </p>
+        <pre class="brush: python">
+masks = sorted(product((True, False), repeat=len(input)), key=sum)
+        </pre>
+        <p>
+            That's how you created a sorted list of all possible templates of instructions, what characters to delete.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Keep explaining please.
+    </div>
+    <div class="answer">
+        <p>
+            Let's create an additional function <b class="code">delete</b> inside the main one to take every template and create a new string from the given one without specific brackets according to the current template. 
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    ...
+        </pre>
+        <p>
+            Iterate over characters of <b class="code">mask</b> and given <b class="code">input</b> simultaneously with <a target="_blank" href="https://www.w3schools.com/python/ref_func_zip.asp">zip()</a> function and keep only characters of <b class="code">input</b> if the respective logic flag of <b class="code">mask</b> is not <b class="code">True</b> (since <b class="code">True</b> means deletion).
+        </p>
+        <pre class="brush: python">
+bracket for bracket, delete in zip(input, mask) if not delete
+        </pre>
+        <p>
+            You will get a sequence, so <b class="code">join</b> it into the string and return from the <b class="code">delete</b> function.
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        I still need a hint.
+    </div>
+    <div class="answer">
+        <p>
+            Let's creates the other additional function inside the main one, which takes a string after previous deletion and check if it's balanced.
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+
+    ...
+        </pre>
+        <p>
+            Here you create a new empty string <b class="code">stack</b> and while iterating over the <b class="code">s</b> string, add each current character into the <b class="code">stack</b> and check if the last two characters of <b class="code">stack</b> create a balance pair of brackets. Is so, remove the pair from <b class="code">stack</b>. If the <b class="code">stack</b> is empty at the end, it means the string <b class="code">s</b> is fully balanced.  
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+    
+    stack = ""
+    for b in s:
+        stack += b    
+        if stack[-2:] in ("()", "[]", "{}"):
+            stack = stack[:-2]
+        
+    return not stack
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Please help to make everything work together.
+    </div>
+    <div class="answer">
+        <p>
+            Yes, it's the final stone. Apply <b class="code">delete</b> function to every template in <b class="code">mask</b> using <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> function. Check
+        </p>
+        <pre class="brush: python">
+map(delete, masks)
+        </pre>
+        <p>
+            From this iterator choose only <b class="code">is_balanced</b> strings using <a target="_blank" href="https://www.w3schools.com/python/ref_func_filter.asp">filter()</a> function. 
+        </p>
+        <pre class="brush: python">
+filter(is_balanced, map(delete, masks))
+        </pre>
+        <p>
+            Your <b class="code">masks</b> is sorted by the number of deletion, so you just need the very first element from this sequence. Since it's an iterator, you need to use <a target="_blank" href="https://www.w3schools.com/python/ref_func_next.asp">next()</a>, that returns the next value from the iterator (the first in out case).
+        </p>
+        <pre class="brush: python">
+return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        So, how my final solution should look like?
+    </div>
+    <div class="answer">
+        <p>
+            You just need to join all previous hints and wrap your code into function expression. Using type hints for input and output data are highly recommended.
+        </p>
+        <p>Here is the whole solution:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from itertools import product
+
+
+def remove_brackets(input: str) -> str:
+    
+    def is_balanced(s: str) -> bool:
+        
+        stack = ""
+        for b in s:
+            stack += b    
+            if stack[-2:] in ("()", "[]", "{}"):
+                stack = stack[:-2]
+            
+        return not stack
+    
+    def delete(mask: tuple[bool]) -> str:
+        
+        return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+    
+    masks = sorted(product((True, False), repeat=len(input)), key=sum)
+    
+    return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+        </div>
+        <p>Click <b>Best Solutions</b> at mission menu and see a lot of other interesting solutions!</p>
+    </div>
+</div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Thanks! I know and understand more now! Everything works fine!
+    </div>
+    <div class="answer">
+        Glad to hear it 👍!
+    </div>
+</div>
+</body>
