@@ -1,0 +1,40 @@
+<!-- Describe task in general -->
+
+<p>
+    Avant de résoudre cette mission, vous pouvez essayer de résoudre la mission <a target="_blank" href="/mission/brackets/">"Brackets"</a>.
+</p>
+
+<p>
+    Votre tâche consiste à rétablir l'équilibre entre les parenthèses ouvertes et fermées en supprimant les parenthèses inutiles, tout en essayant d'utiliser le nombre minimum de suppressions.
+</p>
+
+<p>
+    Seuls 3 types de parenthèses <b>"()", "[]", "{}"</b> peuvent être utilisés dans la chaîne donnée.
+</p>
+
+<p>
+    Seule une parenthèse peut fermer une parenthèse. C'est-à-dire que dans cette expression <b class="code">"(}"</b> - les parenthèses ne sont pas équilibrées. Dans une chaîne vide, c'est-à-dire dans une chaîne qui ne contient aucune parenthèse, les parenthèses sont équilibrées, mais la suppression de toutes les parenthèses n'est pas considérée comme une solution optimale.
+</p>
+
+<p>
+    S'il y a plusieurs réponses correctes, vous devez choisir celle où le caractère qui peut être supprimé est le plus proche du début. Par exemple, dans le cas présent, <b class="code">"[(])"</b>, la réponse correcte sera <b class="code">"()"</b>, car les parenthèses amovibles sont plus proches du début de la ligne.
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>Entrée:</strong> Une chaîne <span>(str{% if is_js %}ing{% endif %})</span> de caractères "(, ), {, }, [, ]".
+</p>
+
+<p>
+   <strong>Résultat: une chaîne de caractères "( ), {, }, [, ]":</strong> Une chaîne <span>(str{% if is_js %}ing{% endif %})</span> de caractères "(, ), {, }, [, ]".
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>Exemples:</strong>
+    </p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
