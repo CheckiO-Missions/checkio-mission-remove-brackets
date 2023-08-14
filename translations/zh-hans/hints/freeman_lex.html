@@ -1,0 +1,177 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        我不知道如何开始解决这个任务。
+    </div>
+    <div class="answer">
+        <p>
+            抓住一个想法💡！创建一个包含所有可能的掩码 - 模板的列表，每个模板都会告诉我们要删除哪些确切的括号。该列表按删除次数排序，因为您需要找到删除次数较少的平衡字符串。然后，每个掩码都会应用于给定的<b class="code">input</b> 字符串，以创建一个没有删除括号的新字符串。检查这个新字符串是否平衡。如果是，这就是答案。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        好吧，我应该从哪里开始呢？
+    </div>
+    <div class="answer">
+        <p>
+            要创建所有可能的模板，您需要<b class="code">itertools</b> 标准模块中的<a target="_blank" href="https://docs.python.org/3/library/itertools.html#itertools.product">product</a> 函数。在函数定义之前导入该函数。
+        </p>
+        <pre class="brush: python">
+from itertools import product
+        </pre>
+        <p>
+            现在，让我们创建一个包含所有可能模板的列表。在给定的<b class="code">input</b> 字符串中，每个字符都有两种状态：应该在下面的模板中删除 (<b class="code">True</b>) 或不删除 (<b class="code">False</b>)。当然，这两个状态对的数量等于<b class="code">input</b> 的长度。这些信息足以创建一个包含所有可能组合的生成器，使用<b class="code">product</b> 。  
+        </p>
+        <pre class="brush: python">
+product((True, False), repeat=len(input))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        下一步该怎么做？
+    </div>
+    <div class="answer">
+        <p>
+            由于您感兴趣的是删除数量较少的模板，因此需要将上面的生成器转换为排序列表，删除数量较少的模板排在前面。Python 将逻辑值解释为整数，因此这意味着模板中<b class="code">True</b>'s (1's) 的数量越少，模板值的<b class="code">sum</b> 就越小。现在使用<a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> 函数，使用适当的排序键，并将结果赋值给一个变量。    
+        </p>
+        <pre class="brush: python">
+masks = sorted(product((True, False), repeat=len(input)), key=sum)
+        </pre>
+        <p>
+            这样就创建了一个排序列表，列出了所有可能的指令模板，以及需要删除的字符。
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        请继续解释。
+    </div>
+    <div class="answer">
+        <p>
+            让我们在主函数内部创建一个附加函数<b class="code">delete</b> ，以获取每个模板，并根据当前模板从给定模板创建一个不带特定括号的新字符串。 
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    ...
+        </pre>
+        <p>
+            同时使用<a target="_blank" href="https://www.w3schools.com/python/ref_func_zip.asp">zip()</a> 函数遍历<b class="code">mask</b> 和给定<b class="code">input</b> 中的字符，如果<b class="code">mask</b> 的相应逻辑标志不是<b class="code">True</b> ，则只保留<b class="code">input</b> 中的字符（因为<b class="code">True</b> 意味着删除）。
+        </p>
+        <pre class="brush: python">
+bracket for bracket, delete in zip(input, mask) if not delete
+        </pre>
+        <p>
+            您将得到一个序列，<b class="code">join</b> ，然后从<b class="code">delete</b> 函数返回。
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        我还需要一个提示。
+    </div>
+    <div class="answer">
+        <p>
+            让我们在主函数中创建另一个附加函数，该函数接收先前删除后的字符串，并检查它是否平衡。
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+
+    ...
+        </pre>
+        <p>
+            这里创建一个新的空字符串<b class="code">stack</b> ，在遍历<b class="code">s</b> 字符串的同时，将当前的每个字符添加到<b class="code">stack</b> 中，并检查<b class="code">stack</b> 的最后两个字符是否创建了一对平衡的括号。如果是，则从 中删除这对括号。如果是，则从<b class="code">stack</b> 中删除这对括号。如果<b class="code">stack</b> 最后为空，则表示<b class="code">s</b> 字符串完全平衡。  
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+    
+    stack = ""
+    for b in s:
+        stack += b    
+        if stack[-2:] in ("()", "[]", "{}"):
+            stack = stack[:-2]
+        
+    return not stack
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        请帮助使所有内容一起工作。
+    </div>
+    <div class="answer">
+        <p>
+            是的，这是最后一块石头。使用<a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> 函数对<b class="code">mask</b> 中的每个模板应用<b class="code">delete</b> 函数。检查
+        </p>
+        <pre class="brush: python">
+map(delete, masks)
+        </pre>
+        <p>
+            使用<a target="_blank" href="https://www.w3schools.com/python/ref_func_filter.asp">filter()</a> 函数从该迭代器中只选择<b class="code">is_balanced</b> 字符串。 
+        </p>
+        <pre class="brush: python">
+filter(is_balanced, map(delete, masks))
+        </pre>
+        <p>
+            您的<b class="code">masks</b> 是按删除次数排序的，因此您只需要该序列中的第一个元素。由于这是一个迭代器，因此需要使用<a target="_blank" href="https://www.w3schools.com/python/ref_func_next.asp">next()</a> ，它将返回迭代器中的下一个值（在 out 情况下是第一个）。
+        </p>
+        <pre class="brush: python">
+return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        那么，我的最终解决方案应该是怎样的呢？
+    </div>
+    <div class="answer">
+        <p>
+            您只需将之前的所有提示连接起来，然后将代码封装成函数表达式即可。强烈建议对输入和输出数据使用类型提示。
+        </p>
+        <p>下面是整个解决方案：</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from itertools import product
+
+
+def remove_brackets(input: str) -> str:
+    
+    def is_balanced(s: str) -> bool:
+        
+        stack = ""
+        for b in s:
+            stack += b    
+            if stack[-2:] in ("()", "[]", "{}"):
+                stack = stack[:-2]
+            
+        return not stack
+    
+    def delete(mask: tuple[bool]) -> str:
+        
+        return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+    
+    masks = sorted(product((True, False), repeat=len(input)), key=sum)
+    
+    return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+        </div>
+        <p>点击任务菜单<b>Best Solutions</b> ，查看更多有趣的解决方案！</p>
+    </div>
+</div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        谢谢！我现在知道并理解得更多了！一切正常！
+    </div>
+    <div class="answer">
+        很高兴听到这个消息 👍！
+    </div>
+</div>
+</body>
