@@ -1,0 +1,177 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Nie mam pojęcia, jak zacząć rozwiązywać tę misję.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę złapać jakiś pomysł 💡! Proszę stworzyć listę wszystkich możliwych masek - szablonów, każdy z nich mówi nam jakie dokładnie nawiasy usunąć. Lista jest posortowana według liczby usunięć, ponieważ trzeba znaleźć zrównoważony ciąg z mniejszą liczbą usunięć. Każda maska jest następnie stosowana do podanego ciągu <b class="code">input</b> w celu utworzenia nowego ciągu bez usuniętych nawiasów. Ten nowy ciąg jest sprawdzany pod kątem zrównoważenia. Jeśli tak, to jest to odpowiedź.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, od czego powinienem zacząć?
+    </div>
+    <div class="answer">
+        <p>
+            Aby utworzyć wszystkie możliwe szablony, potrzebują Państwo funkcji <a target="_blank" href="https://docs.python.org/3/library/itertools.html#itertools.product">product</a> ze standardowego modułu <b class="code">itertools</b>. Proszę zaimportować funkcję przed definicją funkcji.
+        </p>
+        <pre class="brush: python">
+from itertools import product
+        </pre>
+        <p>
+            Teraz proszę utworzyć listę wszystkich możliwych szablonów. Dla każdego znaku w podanym łańcuchu <b class="code">input</b> mają Państwo dwa statusy: powinien zostać usunięty w następnym szablonie (<b class="code">True</b>) lub nie (<b class="code">False</b>). Oczywiście liczba tych par jest równa długości łańcucha <b class="code">input</b>. To wystarczająca ilość informacji, aby utworzyć generator wszystkich możliwych ich kombinacji, używając <b class="code">product</b>. 
+        </p>
+        <pre class="brush: python">
+product((True, False), repeat=len(input))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Co robić dalej?
+    </div>
+    <div class="answer">
+        <p>
+            Ponieważ interesuje Pana mniejsza liczba usunięć, musi Pan przekonwertować powyższy generator na posortowaną listę, na której szablony z mniejszą liczbą usunięć idą jako pierwsze. Python interpretuje wartości logiczne jako liczby całkowite, więc oznacza to, że im mniejsza liczba <b class="code">True</b>'s (1's) znajduje się w szablonie, tym mniejsza jest <b class="code">sum</b> wartości szablonu. Proszę teraz użyć funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> z odpowiednim kluczem sortowania i przypisać wynik do zmiennej.    
+        </p>
+        <pre class="brush: python">
+masks = sorted(product((True, False), repeat=len(input)), key=sum)
+        </pre>
+        <p>
+            W ten sposób stworzył Pan posortowaną listę wszystkich możliwych szablonów instrukcji, jakie znaki należy usunąć.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę wyjaśniać dalej.
+    </div>
+    <div class="answer">
+        <p>
+            Proszę utworzyć dodatkową funkcję <b class="code">delete</b> wewnątrz głównej funkcji, która będzie pobierać każdy szablon i tworzyć nowy ciąg znaków z podanego szablonu bez określonych nawiasów zgodnie z bieżącym szablonem. 
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    ...
+        </pre>
+        <p>
+            Iteruj po znakach z <b class="code">mask</b> i podanych <b class="code">input</b> jednocześnie z funkcją <a target="_blank" href="https://www.w3schools.com/python/ref_func_zip.asp">zip()</a> i zachowaj tylko znaki z <b class="code">input</b>, jeśli odpowiednia flaga logiczna <b class="code">mask</b> nie jest <b class="code">True</b> (ponieważ <b class="code">True</b> oznacza usunięcie).
+        </p>
+        <pre class="brush: python">
+bracket for bracket, delete in zip(input, mask) if not delete
+        </pre>
+        <p>
+            Otrzyma Pan sekwencję, więc <b class="code">join</b> ją do łańcucha i powrót z funkcji <b class="code">delete</b>.
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Nadal potrzebuję podpowiedzi.
+    </div>
+    <div class="answer">
+        <p>
+            Utwórzmy drugą dodatkową funkcję wewnątrz głównej, która pobiera ciąg po poprzednim usunięciu i sprawdza, czy jest zrównoważony.
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+
+    ...
+        </pre>
+        <p>
+            Tutaj tworzymy nowy pusty ciąg <b class="code">stack</b> i podczas iteracji po ciągu <b class="code">s</b> dodajemy każdy bieżący znak do <b class="code">stack</b> i sprawdzamy, czy dwa ostatnie znaki <b class="code">stack</b> tworzą zrównoważoną parę nawiasów. Jeśli tak, proszę usunąć tę parę z ciągu <b class="code">stack</b>. Jeśli ciąg <b class="code">stack</b> jest pusty na końcu, oznacza to, że ciąg <b class="code">s</b> jest w pełni zbalansowany.  
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+    
+    stack = ""
+    for b in s:
+        stack += b    
+        if stack[-2:] in ("()", "[]", "{}"):
+            stack = stack[:-2]
+        
+    return not stack
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Proszę pomóc, aby wszystko działało razem.
+    </div>
+    <div class="answer">
+        <p>
+            Tak, to ostatni kamień. Proszę zastosować funkcję <b class="code">delete</b> do każdego szablonu w <b class="code">mask</b> używając funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a>. Proszę sprawdzić
+        </p>
+        <pre class="brush: python">
+map(delete, masks)
+        </pre>
+        <p>
+            Z tego iteratora proszę wybrać tylko ciągi <b class="code">is_balanced</b> używając funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_filter.asp">filter()</a>. 
+        </p>
+        <pre class="brush: python">
+filter(is_balanced, map(delete, masks))
+        </pre>
+        <p>
+            Pana <b class="code">masks</b> jest posortowany według liczby usunięć, więc potrzebuje Pan tylko pierwszego elementu z tej sekwencji. Ponieważ jest to iterator, należy użyć funkcji <a target="_blank" href="https://www.w3schools.com/python/ref_func_next.asp">next()</a>, która zwraca następną wartość z iteratora (pierwszą w naszym przypadku).
+        </p>
+        <pre class="brush: python">
+return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Jak więc powinno wyglądać moje ostateczne rozwiązanie?
+    </div>
+    <div class="answer">
+        <p>
+            Wystarczy połączyć wszystkie poprzednie podpowiedzi i zawinąć kod w wyrażenie funkcyjne. Używanie podpowiedzi typu dla danych wejściowych i wyjściowych jest wysoce zalecane.
+        </p>
+        <p>Oto całe rozwiązanie:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from itertools import product
+
+
+def remove_brackets(input: str) -> str:
+    
+    def is_balanced(s: str) -> bool:
+        
+        stack = ""
+        for b in s:
+            stack += b    
+            if stack[-2:] in ("()", "[]", "{}"):
+                stack = stack[:-2]
+            
+        return not stack
+    
+    def delete(mask: tuple[bool]) -> str:
+        
+        return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+    
+    masks = sorted(product((True, False), repeat=len(input)), key=sum)
+    
+    return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+        </div>
+        <p>Proszę kliknąć <b>Best Solutions</b> w menu misji i zobaczyć wiele innych ciekawych rozwiązań!</p>
+    </div>
+</div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Dzięki! Teraz wiem i rozumiem więcej! Wszystko działa jak należy!
+    </div>
+    <div class="answer">
+        Miło mi to słyszeć 👍!
+    </div>
+</div>
+</body>
