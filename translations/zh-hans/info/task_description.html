@@ -1,0 +1,40 @@
+<!-- Describe task in general -->
+
+<p>
+    在解决这个任务之前，您可以尝试解决<a target="_blank" href="/mission/brackets/">"Brackets"</a> 任务。
+</p>
+
+<p>
+    您的任务是删除不必要的括号，恢复开放式和封闭式括号的平衡，同时尽量减少删除次数。
+</p>
+
+<p>
+    在给定的字符串中，只能使用 3 种括号<b>"()", "[]", "{}"</b> 。
+</p>
+
+<p>
+    只有括号可以关闭括号。也就是说，在这个表达式<b class="code">"(}"</b> 中，括号是不平衡的。在空字符串（即不包含任何括号的字符串）中，括号是平衡的，但删除所有括号并不是最佳解决方案。
+</p>
+
+<p>
+    如果有多个正确答案，那么您应该选择可以删除的字符更靠近开头的那个。例如，在本例中<b class="code">"[(])"</b> ，正确答案将是<b class="code">"()"</b> ，因为可去掉的括号更靠近行首。
+</p>
+
+<!-- Explain input and output values -->
+<p>
+   <strong>输入：</strong>字符串 <span>(str{% if is_js %}ing{% endif %})</span>字符串"（, ）, {, }, [, ]"。
+</p>
+
+<p>
+   <strong>输出： 字符串</strong>字符串 <span>(str{% if is_js %}ing{% endif %})</span>字符串"(, ), {, }, [, ]"。
+</p>
+
+
+<!-- Give some usage examples -->
+<div class="for_info_only">
+    <p>
+        <strong>示例</strong>
+    </p>
+
+<pre class="brush: {% if is_js %}javascript{% else %}python{% endif %}">{{init_code_tmpl}}</pre>
+</div>
