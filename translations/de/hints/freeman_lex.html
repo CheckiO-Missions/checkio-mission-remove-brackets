@@ -1,0 +1,177 @@
+<body data-author="freeman_lex">
+<div class="question-answer">
+    <div class="question">
+        Ich habe keine Ahnung, wie ich mit der Lösung dieser Aufgabe beginnen soll.
+    </div>
+    <div class="answer">
+        <p>
+            Fangen Sie eine Idee 💡! Erstellen Sie eine Liste aller möglichen Masken - Vorlagen, von denen jede angibt, welche Klammern genau zu löschen sind. Die Liste wird nach der Anzahl der Löschungen sortiert, denn Sie müssen die ausgewogene Zeichenfolge mit der geringsten Anzahl von Löschungen finden. Jede Maske wird dann auf die angegebene Zeichenfolge <b class="code">input</b> angewendet, um eine neue Zeichenfolge ohne gelöschte Klammern zu erstellen. Diese neue Zeichenfolge wird daraufhin überprüft, ob sie ausgeglichen ist. Wenn ja, ist das die Antwort.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ok, womit soll ich beginnen?
+    </div>
+    <div class="answer">
+        <p>
+            Um alle möglichen Vorlagen zu erstellen, benötigen Sie die Funktion <a target="_blank" href="https://docs.python.org/3/library/itertools.html#itertools.product">product</a> aus dem Standardmodul <b class="code">itertools</b>. Importieren Sie die Funktion vor Ihrer Funktionsdefinition.
+        </p>
+        <pre class="brush: python">
+from itertools import product
+        </pre>
+        <p>
+            Lassen Sie uns nun eine Liste aller möglichen Vorlagen erstellen. Für jedes Zeichen in der gegebenen <b class="code">input</b> Zeichenfolge haben Sie zwei Status: es sollte in der folgenden Vorlage gelöscht werden (<b class="code">True</b>) oder nicht (<b class="code">False</b>). Natürlich ist die Anzahl dieser Paare gleich der Länge der <b class="code">input</b>. Das sind genug Informationen, um mit <b class="code">product</b> einen Generator für alle möglichen Kombinationen zu erstellen.  
+        </p>
+        <pre class="brush: python">
+product((True, False), repeat=len(input))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Was ist als nächstes zu tun?
+    </div>
+    <div class="answer">
+        <p>
+            Da Sie an einer geringen Anzahl von Löschungen interessiert sind, müssen Sie den obigen Generator in eine sortierte Liste umwandeln, in der die Vorlagen mit den wenigsten Löschungen zuerst erscheinen. Python interpretiert logische Werte als ganze Zahlen, d.h. je weniger <b class="code">True</b>'s (1's) in der Vorlage sind, desto kleiner ist die <b class="code">sum</b> der Vorlagenwerte. Verwenden Sie nun die Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_sorted.asp">sorted()</a> mit dem richtigen Schlüssel für die Sortierung und weisen Sie das Ergebnis einer Variablen zu.    
+        </p>
+        <pre class="brush: python">
+masks = sorted(product((True, False), repeat=len(input)), key=sum)
+        </pre>
+        <p>
+            Auf diese Weise haben Sie eine sortierte Liste aller möglichen Vorlagen von Anweisungen erstellt, welche Zeichen zu löschen sind.
+        </p>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Erklären Sie bitte weiter.
+    </div>
+    <div class="answer">
+        <p>
+            Lassen Sie uns eine zusätzliche Funktion <b class="code">delete</b> innerhalb der Hauptfunktion erstellen, die jede Vorlage nimmt und aus der gegebenen eine neue Zeichenkette ohne spezifische Klammern entsprechend der aktuellen Vorlage erstellt. 
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    ...
+        </pre>
+        <p>
+            Iterieren Sie über die Zeichen von <b class="code">mask</b> und <b class="code">input</b> gleichzeitig mit der Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_zip.asp">zip()</a> und behalten Sie nur die Zeichen von <b class="code">input</b>, wenn das entsprechende logische Flag von <b class="code">mask</b> nicht <b class="code">True</b> ist (da <b class="code">True</b> Löschen bedeutet).
+        </p>
+        <pre class="brush: python">
+bracket for bracket, delete in zip(input, mask) if not delete
+        </pre>
+        <p>
+            Sie erhalten eine Sequenz, die Sie mit <b class="code">join</b> in den String einfügen und mit der Funktion <b class="code">delete</b> zurückgeben.
+        </p>
+        <pre class="brush: python">
+def delete(mask: tuple[bool]) -> str:
+
+    return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Ich brauche noch einen Hinweis.
+    </div>
+    <div class="answer">
+        <p>
+            Lassen Sie uns die andere zusätzliche Funktion innerhalb der Hauptfunktion erstellen, die eine Zeichenkette nach der vorherigen Löschung aufnimmt und überprüft, ob sie ausgeglichen ist.
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+
+    ...
+        </pre>
+        <p>
+            Hier erstellen Sie eine neue leere Zeichenkette <b class="code">stack</b> und während Sie über die Zeichenkette <b class="code">s</b> iterieren, fügen Sie jedes aktuelle Zeichen in <b class="code">stack</b> ein und prüfen, ob die letzten beiden Zeichen von <b class="code">stack</b> ein ausgeglichenes Klammerpaar bilden. Ist dies der Fall, entfernen Sie das Paar aus <b class="code">stack</b>. Wenn <b class="code">stack</b> am Ende leer ist, bedeutet dies, dass die Zeichenfolge <b class="code">s</b> vollständig ausgeglichen ist.  
+        </p>
+        <pre class="brush: python">
+def is_balanced(s: str) -> bool:
+    
+    stack = ""
+    for b in s:
+        stack += b    
+        if stack[-2:] in ("()", "[]", "{}"):
+            stack = stack[:-2]
+        
+    return not stack
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Bitte helfen Sie uns, damit alles zusammen funktioniert.
+    </div>
+    <div class="answer">
+        <p>
+            Ja, das ist der letzte Stein. Wenden Sie die Funktion <b class="code">delete</b> mit der Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_map.asp">map()</a> auf jede Vorlage in <b class="code">mask</b> an. Prüfen Sie
+        </p>
+        <pre class="brush: python">
+map(delete, masks)
+        </pre>
+        <p>
+            Wählen Sie aus diesem Iterator nur <b class="code">is_balanced</b> Strings mit der Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_filter.asp">filter()</a>. 
+        </p>
+        <pre class="brush: python">
+filter(is_balanced, map(delete, masks))
+        </pre>
+        <p>
+            Ihr <b class="code">masks</b> ist nach der Anzahl der Löschungen sortiert. Sie brauchen also nur das erste Element aus dieser Folge. Da es sich um einen Iterator handelt, müssen Sie die Funktion <a target="_blank" href="https://www.w3schools.com/python/ref_func_next.asp">next()</a> verwenden, die den nächsten Wert aus dem Iterator zurückgibt (den ersten in unserem Fall).
+        </p>
+        <pre class="brush: python">
+return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+    </div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Wie sollte also meine endgültige Lösung aussehen?
+    </div>
+    <div class="answer">
+        <p>
+            Sie müssen nur alle vorherigen Hinweise zusammenführen und Ihren Code in einen Funktionsausdruck verpacken. Die Verwendung von Typ-Hinweisen für Eingabe- und Ausgabedaten wird dringend empfohlen.
+        </p>
+        <p>Hier ist die gesamte Lösung:</p>
+        <div class="spoiler">
+        <pre class="brush: python">
+from itertools import product
+
+
+def remove_brackets(input: str) -> str:
+    
+    def is_balanced(s: str) -> bool:
+        
+        stack = ""
+        for b in s:
+            stack += b    
+            if stack[-2:] in ("()", "[]", "{}"):
+                stack = stack[:-2]
+            
+        return not stack
+    
+    def delete(mask: tuple[bool]) -> str:
+        
+        return ''.join(bracket for bracket, delete in zip(input, mask) if not delete)
+    
+    masks = sorted(product((True, False), repeat=len(input)), key=sum)
+    
+    return next(filter(is_balanced, map(delete, masks)))
+        </pre>
+        </div>
+        <p>Klicken Sie auf <b>Best Solutions</b> im Missionsmenü und sehen Sie sich viele andere interessante Lösungen an!</p>
+    </div>
+</div>
+</div>
+<div class="question-answer">
+    <div class="question">
+        Vielen Dank! Ich weiß und verstehe jetzt mehr! Alles funktioniert einwandfrei!
+    </div>
+    <div class="answer">
+        Freut mich zu hören 👍!
+    </div>
+</div>
+</body>
